@@ -57,7 +57,10 @@ jobs:
         path: "./download"
 
     - name: List files in directory
-      run: Get-ChildItem -Path ./your-directory -Recurse
+      id: list_files
+      run: |
+        $files = Get-ChildItem -Path ./your-directory -Recurse
+        echo "$files" | Out-String | Out-File -FilePath $env:GITHUB_ENV
       shell: pwsh
 
 
