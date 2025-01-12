@@ -17,7 +17,7 @@ class Program
 
         using var osc = new OscListener(new IPEndPoint(IPAddress.Loopback, 9001));
 
-        var ReceiverThread = new Thread(async void () =>
+        Task.Run(async void () =>
         {
             while (true)
             {
@@ -34,9 +34,8 @@ class Program
                 }
             }
         });
-        ReceiverThread.Start();
 
-        var LookForOSCListenersThread = new Thread(() =>
+        Task.Run(async () =>
         {
             while (true)
             {
@@ -69,11 +68,14 @@ class Program
                         ToSendDataTo[i] = sender;
                     }
                 }
+                
+                await Task.Delay(100);
             }
         });
-        LookForOSCListenersThread.Start();
+        
+        Console.WriteLine(""); // Spacing
 
-        var ConsoleTextThread = new Thread(() =>
+        Task.Run(async () =>
         {
             var initialCursorTop = Console.CursorTop;
             Console.CursorVisible = false; // Hide the cursor
@@ -106,12 +108,10 @@ class Program
                     Console.WriteLine(new string(' ', Console.WindowWidth));
                 }
 
-                Thread.Sleep(1000);
+                await Task.Delay(1000);
             }
         });
 
-        Console.WriteLine(""); // Spacing
-        ConsoleTextThread.Start();
         while (true)
         {
             Console.ReadLine();
