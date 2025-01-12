@@ -23,7 +23,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore --configuration Release --output ./output
+      run: dotnet build --no-restore --configuration Release --output ./output -r win-x64
     - name: Rename output file
       run: mv "./output/Automatic OSC Router" "./output/Automatic OSC Router.exe"
     - name: Upload artifacts
