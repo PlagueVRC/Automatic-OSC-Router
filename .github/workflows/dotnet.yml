@@ -24,13 +24,8 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore --configuration Release --output ./output
-    - name: Create zip file of artifacts
-      run: |
-        mkdir -p artifacts
-        cp -r output/* artifacts/
-        zip -r "Automatic OSC Router.zip" artifacts/
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: "Automatic OSC Router"
-        path: "Automatic OSC Router.zip"
+        path: "./output"
