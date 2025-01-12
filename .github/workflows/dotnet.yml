@@ -37,11 +37,10 @@ jobs:
       with:
         name: "Automatic OSC Router"
         path: "./output"
+    - name: Set Tag Name
+      id: set_tag_name
+      run: echo "TAG_NAME=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
     - name: Create Release
-      id: create_release
-      run: |
-        TAG_NAME=$(echo ${{ github.sha }} | cut -c1-7)
-        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
