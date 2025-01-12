@@ -39,7 +39,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Get current date
       id: date
-      run: echo "::set-output name=date::$(date +'%d/%m/%Y %H:%M %t')"
+      run: echo "::set-output name=date::$(Get-Date -Format 'dd/MM/yyyy HH:mm')"
     - name: Create download directory
       run: mkdir -p "./download"
     - name: Download artifact
@@ -49,8 +49,8 @@ jobs:
     - name: Find first zip file
       id: find_zip
       run: |
-        zip_file=$(find ./download -name "*.zip" | head -n 1)
-        echo "::set-output name=zip_file::$zip_file"
+        $zip_file = Get-ChildItem -Path "./download" -Filter "*.zip" | Select-Object -First 1
+        echo "::set-output name=zip_file::$($zip_file.FullName)"
     - name: Create A Release
       uses: actions/create-release@v1
       id: create_release
