@@ -36,21 +36,23 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: "Automatic OSC Router"
-        path: "./output"
-    - name: Set Tag Name
-      id: set_tag_name
-      run: echo "TAG_NAME=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
-    - name: Create Release
-      uses: softprops/action-gh-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        path: "./download"
+    - name: Create A Release
+      uses: actions/create-release@v1
+      id: create_release
       with:
-        tag_name: ${{ env.TAG_NAME }}
         draft: false
         prerelease: false
-    - name: Upload Release Asset
-      uses: softprops/action-gh-release@v1
+        release_name: Latest Build [${{ steps.date.outputs.date }}]
+        tag_name: ${{ github.run_id }}
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
+    - name: Add zip To Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
       with:
-        files: ./output/Automatic\ OSC\ Router.zip
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./download/Automatic\ OSC\ Router.zip
+        asset_name: Automatic\ OSC\ Router.zip
+        asset_content_type: application/x-msdownload
