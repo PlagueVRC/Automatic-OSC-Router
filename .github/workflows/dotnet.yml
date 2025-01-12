@@ -58,10 +58,8 @@ jobs:
 
     - name: List files in directory
       run: |
-        Get-ChildItem -Path ./your-directory -Recurse | ForEach-Object { Write-Output $_.FullName }
+        Get-ChildItem -Path ./download -Recurse | ForEach-Object { Write-Host $_.FullName }
       shell: pwsh
-
-
 
     - name: Create A Release
       uses: actions/create-release@v1
