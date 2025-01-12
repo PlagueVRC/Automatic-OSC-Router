@@ -39,11 +39,14 @@ jobs:
         path: "./output"
     - name: Create Release
       id: create_release
+      run: |
+        TAG_NAME=$(echo ${{ github.sha }} | cut -c1-7)
+        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.sha:0:7 }}
+        tag_name: ${{ env.TAG_NAME }}
         draft: false
         prerelease: false
     - name: Upload Release Asset
