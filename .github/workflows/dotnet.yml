@@ -27,5 +27,5 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: "Automatic OSC Router"
+        name: "Automatic OSC Router.exe"
         path: "./output"
