@@ -46,7 +46,7 @@ jobs:
 
     - name: Get current date
       id: date
-      run: echo "::set-output name=date::$(date +'%d/%m/%Y %H:%M %t')"
+      run: echo "::set-output name=date::$(date +'%d/%m/%Y %H:%M %p')"
 
     - name: Create download directory
       run: mkdir -p "./download"
