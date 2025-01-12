@@ -25,7 +25,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release --output ./output
     - name: Rename output file
-      run: mv ./output/Automatic OSC Router ./output/Automatic OSC Router.exe
+      run: mv "./output/Automatic OSC Router" "./output/Automatic OSC Router.exe"
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
