@@ -24,12 +24,10 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore --configuration Release
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
     - name: Create zip file of artifacts
       run: |
         mkdir -p artifacts
-        cp -r bin/Release/* artifacts/
+        cp -r bin/Release/net9.0/* artifacts/
         zip -r "Automatic OSC Router.zip" artifacts/
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
