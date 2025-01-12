@@ -23,9 +23,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore --configuration Release --output ./output
+      run: dotnet build --no-restore --configuration Release --platform AnyCPU --output ./output
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: "Automatic OSC Router.exe"
+        name: "Automatic OSC Router"
         path: "./output"
