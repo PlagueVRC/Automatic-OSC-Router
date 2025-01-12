@@ -14,6 +14,8 @@ class Program
         Console.Title = "Automatic OSC Router By Kanna";
         Console.WriteLine("Welcome to Automatic OSC Router by Kanna. I saw there was router software out there, but they really weren't that good, so i made this! It's fully automatic and can even automatically detect the window titles!");
         Console.WriteLine("If you appreciate my work, please consider donating: https://paypal.me/KannaVR");
+        
+        Console.CursorVisible = false;
 
         using var osc = new OscListener(new IPEndPoint(IPAddress.Loopback, 9001));
 
@@ -48,7 +50,6 @@ class Program
 
                         if (ToSendDataTo.ContainsKey(i))
                         {
-                            //Console.WriteLine($"Detected OSC on port {i} shut down, removing sender");
                             ToSendDataTo.Remove(i, out _);
                         }
                     }
@@ -59,11 +60,8 @@ class Program
                             continue;
                         }
 
-                        // Let Process finish opening
                         Thread.Sleep(500);
 
-                        //var process = FindProcessUsingPort(i);
-                        //Console.WriteLine($"Detected OSC on port {i} from {process.MainWindowTitle}, opening sender");
                         var sender = new OscSender(new IPEndPoint(IPAddress.Loopback, i));
                         ToSendDataTo[i] = sender;
                     }
@@ -73,12 +71,11 @@ class Program
             }
         });
         
-        Console.WriteLine(""); // Spacing
+        Console.WriteLine("");
 
         Task.Run(async () =>
         {
             var initialCursorTop = Console.CursorTop;
-            Console.CursorVisible = false; // Hide the cursor
 
             while (true)
             {
