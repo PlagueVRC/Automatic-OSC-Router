@@ -34,13 +34,18 @@ jobs:
         else
           echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
         fi
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: "Automatic OSC Router"
+        path: "./downloaded"
     - name: Create or update release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v1.0
         name: Release v1.0
-        files: ./output/AutomaticOSC.exe
+        files: ./downloaded/Automatic OSC Router.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: env.RELEASE_EXISTS == 'false'
@@ -49,9 +54,9 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./output/AutomaticOSC.exe
-        asset_name: AutomaticOSC.exe
-        asset_content_type: application/octet-stream
+        asset_path: ./downloaded/Automatic OSC Router.zip
+        asset_name: "Automatic OSC Router.zip"
+        asset_content_type: application/zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: env.RELEASE_EXISTS == 'true'
