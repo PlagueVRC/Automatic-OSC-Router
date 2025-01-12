@@ -29,10 +29,9 @@ jobs:
     - name: Check if release exists
       id: check_release
       run: |
+        gh release view v1.0 || echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
         if (gh release view v1.0) {
           echo "RELEASE_EXISTS=true" >> $GITHUB_ENV
-        } else {
-          echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
         }
       shell: pwsh
       continue-on-error: true
