@@ -39,7 +39,7 @@ jobs:
         path: "./output"
     - name: Create Release
       id: create_release
-      uses: actions/create-release@v4
+      uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -48,11 +48,8 @@ jobs:
         draft: false
         prerelease: false
     - name: Upload Release Asset
-      uses: actions/upload-release-asset@v4
+      uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./output/Automatic\ OSC\ Router.zip
-        asset_name: Automatic OSC Router.zip
-        asset_content_type: application/zip
+        files: ./output/Automatic\ OSC\ Router.zip
