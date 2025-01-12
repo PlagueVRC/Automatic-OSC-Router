@@ -83,11 +83,10 @@ class Program
                 var currentLine = initialCursorTop;
 
                 Console.SetCursorPosition(0, currentLine);
-                Console.WriteLine("Currently routing data to:".PadRight(Console.WindowWidth)); // Ensure no leftover text in line
+                Console.WriteLine("Currently routing data to:".PadRight(Console.WindowWidth));
 
                 foreach (var entry in ToSendDataTo.ToArray())
                 {
-                    // Update current line dynamically without affecting others
                     currentLine++;
                     Console.SetCursorPosition(0, currentLine);
 
@@ -96,19 +95,18 @@ class Program
                         ? $"Program Title: {process.MainWindowTitle}, Port: {entry.Key}"
                         : $"Port: {entry.Key}";
 
-                    Console.WriteLine(output.PadRight(Console.WindowWidth)); // Ensure no leftover text in line
+                    Console.WriteLine(output.PadRight(Console.WindowWidth));
                 }
 
-                // Clear only the remaining lines if the dictionary shrinks
                 var totalLines = initialCursorTop + ToSendDataTo.Count + 1;
                 while (currentLine < totalLines)
                 {
                     currentLine++;
                     Console.SetCursorPosition(0, currentLine);
-                    Console.WriteLine(new string(' ', Console.WindowWidth)); // Clear unneeded lines
+                    Console.WriteLine(new string(' ', Console.WindowWidth));
                 }
 
-                Thread.Sleep(1000); // Keep display updated every second
+                Thread.Sleep(1000);
             }
         });
 
