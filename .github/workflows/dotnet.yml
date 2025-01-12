@@ -35,6 +35,7 @@ jobs:
           echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
         }
       shell: pwsh
+      continue-on-error: true
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Download artifact
