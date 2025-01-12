@@ -57,7 +57,9 @@ jobs:
         path: "./download"
 
     - name: List files in directory
-      run: ls -la ./download
+      run: Get-ChildItem -Path ./your-directory -Recurse
+      shell: pwsh
+
 
     - name: Create A Release
       uses: actions/create-release@v1
