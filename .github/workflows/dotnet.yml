@@ -57,11 +57,10 @@ jobs:
         path: "./download"
 
     - name: List files in directory
-      id: list_files
       run: |
-        $files = Get-ChildItem -Path ./your-directory -Recurse
-        echo "$files" | Out-String | Out-File -FilePath $env:GITHUB_ENV
+        Get-ChildItem -Path ./your-directory -Recurse | ForEach-Object { Write-Output $_.FullName }
       shell: pwsh
+
 
 
     - name: Create A Release
