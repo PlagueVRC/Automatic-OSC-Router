@@ -3,3 +3,6 @@ Automatic OSC Router by Kanna. Fully automatic and even automatically detects th
 Built in .NET 9.0, should be cross platform in turn.
 
 ![image](https://github.com/user-attachments/assets/9e65c61a-937c-445a-87ce-4a7cc4cd5fcf)
+
+# Note
+Currently, it only scans from port 9002 to 10000.
